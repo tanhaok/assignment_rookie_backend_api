@@ -45,7 +45,7 @@
 
 <!-- USER CASE -->
 ### <div id='user_case'>User case</div>
-![USER CASE]('asset/usercase.png')
+![USER CASE]('main/asset/usercase.png')
 
 According to requirement of assignment: 
 
