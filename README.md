@@ -45,7 +45,7 @@
 
 <!-- USER CASE -->
 ### <div id='user_case'>User case</div>
-![USER CASE](https://raw.githubusercontent.com/tanhao111/assignment_rookie_backend_api/main/asset/usercase.png?token=GHSAT0AAAAAABVQI252QGMBRSYNPP6FKUYIYVLDN3A)
+![USER CASE]('asset/usercase.png')
 
 According to requirement of assignment: 
 
