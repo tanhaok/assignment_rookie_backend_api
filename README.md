@@ -66,13 +66,17 @@ List of `Entity` had been define:
 
 
 <!-- DATABASE -->
-### <div id='database'>Database</div>
+### <div id='database'>Database and ERD</div>
+1. Database
+2. ERD
+![image_2022_06_17T13_04_03_713Z](https://user-images.githubusercontent.com/101847895/174325669-179cefb6-af32-451d-a4c5-7b3bb31a5be7.png)
 
 <!-- CONFIGURATION AND DEPENDENCY-->
 ### <div id='config'>Configuration And Dependency</div>
 1. Configuration
 
 2. Dependency
+
 
 ```xml
         <dependency>
