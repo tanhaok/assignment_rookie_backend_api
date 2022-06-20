@@ -45,8 +45,8 @@
 
 <!-- USER CASE -->
 ### <div id='user_case'>User case</div>
-![usercase](https://user-images.githubusercontent.com/101847895/174121319-1a99b75d-c905-48c5-a6f2-8c53390982f1.png)
 
+![usercase2](/asset/usercase.png)
 According to requirement of assignment: 
 
 1. Have two actor `customer` and `admin`
@@ -68,7 +68,11 @@ List of `Entity` had been define:
 <!-- DATABASE -->
 ### <div id='database'>Database and ERD</div>
 1. Database
+
+![database](/asset/database.png)
+
 2. ERD
+
 ![image_2022_06_17T13_04_03_713Z](https://user-images.githubusercontent.com/101847895/174325669-179cefb6-af32-451d-a4c5-7b3bb31a5be7.png)
 
 <!-- CONFIGURATION AND DEPENDENCY-->

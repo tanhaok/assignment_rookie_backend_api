@@ -1,6 +1,5 @@
 package com.assignment.backend.exceptions.handlers;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
