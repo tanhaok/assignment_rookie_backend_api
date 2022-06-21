@@ -36,4 +36,104 @@ public class ProductRate {
     @ManyToOne
     @JoinColumn(name = "pro_id")
     private Product product;
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the accId
+     */
+    public int getAccId() {
+        return accId;
+    }
+
+    /**
+     * @param accId the accId to set
+     */
+    public void setAccId(int accId) {
+        this.accId = accId;
+    }
+
+    /**
+     * @return the rate
+     */
+    public double getRate() {
+        return rate;
+    }
+
+    /**
+     * @param rate the rate to set
+     */
+    public void setRate(double rate) {
+        this.rate = rate;
+    }
+
+    /**
+     * @return the comment
+     */
+    public String getComment() {
+        return comment;
+    }
+
+    /**
+     * @param comment the comment to set
+     */
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    /**
+     * @return the createDate
+     */
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    /**
+     * @param createDate the createDate to set
+     */
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    /**
+     * @return the updateDate
+     */
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    /**
+     * @param updateDate the updateDate to set
+     */
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    /**
+     * @return the product
+     */
+    public Product getProduct() {
+        return product;
+    }
+
+    /**
+     * @param product the product to set
+     */
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    
 }

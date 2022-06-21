@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -33,4 +32,84 @@ public class CartItem implements Serializable{
     @OneToOne
     @JoinColumn(name = "pro_id", referencedColumnName = "pro_id")
     private Product product;
+
+    /**
+     * 
+     */
+    public CartItem() {
+    }
+
+    /**
+     * @return the cartId
+     */
+    public int getCartId() {
+        return cartId;
+    }
+
+    /**
+     * @param cartId the cartId to set
+     */
+    public void setCartId(int cartId) {
+        this.cartId = cartId;
+    }
+
+    /**
+     * @return the proId
+     */
+    public int getProId() {
+        return proId;
+    }
+
+    /**
+     * @param proId the proId to set
+     */
+    public void setProId(int proId) {
+        this.proId = proId;
+    }
+
+    /**
+     * @return the quantity
+     */
+    public int getQuantity() {
+        return quantity;
+    }
+
+    /**
+     * @param quantity the quantity to set
+     */
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    /**
+     * @return the cart
+     */
+    public Cart getCart() {
+        return cart;
+    }
+
+    /**
+     * @param cart the cart to set
+     */
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    /**
+     * @return the product
+     */
+    public Product getProduct() {
+        return product;
+    }
+
+    /**
+     * @param product the product to set
+     */
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    
+
+
 }

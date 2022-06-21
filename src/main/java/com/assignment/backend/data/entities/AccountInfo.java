@@ -37,5 +37,110 @@ public class AccountInfo {
     @JoinColumn(name = "acc_id")
     private Account account;
 
+    /**
+     * default constructor
+     */
+    public AccountInfo() {
+    }
+
+    /**
+     * @return the accId
+     */
+    public int getAccId() {
+        return accId;
+    }
+
+    /**
+     * @param accId the accId to set
+     */
+    public void setAccId(int accId) {
+        this.accId = accId;
+    }
+
+    /**
+     * @return the address
+     */
+    public String getAddress() {
+        return address;
+    }
+
+    /**
+     * @param address the address to set
+     */
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * @return the phone
+     */
+    public String getPhone() {
+        return phone;
+    }
+
+    /**
+     * @param phone the phone to set
+     */
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    /**
+     * @return the createDate
+     */
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    /**
+     * @param createDate the createDate to set
+     */
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    /**
+     * @return the updateDate
+     */
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    /**
+     * @param updateDate the updateDate to set
+     */
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    /**
+     * @return the account
+     */
+    public Account getAccount() {
+        return account;
+    }
+
+    /**
+     * @param account the account to set
+     */
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    
 
 }
