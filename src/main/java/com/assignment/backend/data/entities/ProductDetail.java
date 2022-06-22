@@ -1,7 +1,5 @@
 package com.assignment.backend.data.entities;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,6 +14,9 @@ public class ProductDetail {
     @Id
     @Column(name = "pro_id")
     private int proId;
+
+    @Column(name = "author")
+    private String author;
 
     @Column(name = "num_of")
     private int numOfPage;
@@ -34,11 +35,18 @@ public class ProductDetail {
     @JoinColumn(name = "pro_id")
     private Product product;
 
-    /**
-     * default constructor
-     */
     public ProductDetail() {
+      // this is default constructor 
     }
+
+    /**
+     * @param proId: id of product
+     */
+    public ProductDetail(int proId) {
+        this.proId = proId;
+    }
+
+
 
     /**
      * @return the proId
@@ -52,6 +60,20 @@ public class ProductDetail {
      */
     public void setProId(int proId) {
         this.proId = proId;
+    }
+
+    /**
+     * @return the author
+     */
+    public String getAuthor() {
+        return author;
+    }
+
+    /**
+     * @param author the author to set
+     */
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     /**

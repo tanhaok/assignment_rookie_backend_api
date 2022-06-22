@@ -37,10 +37,15 @@ public class AccountInfo {
     @JoinColumn(name = "acc_id")
     private Account account;
 
-    /**
-     * default constructor
-     */
     public AccountInfo() {
+        //default constructor
+    }
+    
+    /**
+     * @param accId
+     */
+    public AccountInfo(int accId) {
+        this.accId = accId;
     }
 
     /**

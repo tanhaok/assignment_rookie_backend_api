@@ -34,10 +34,15 @@ public class Ordered {
     @JoinColumn(name = "acc_id")
     private Account account;
 
-    /**
-     * 
-     */
     public Ordered() {
+        // default con
+    }
+
+    /**
+     * @param orderId
+     */
+    public Ordered(int orderId) {
+        this.orderId = orderId;
     }
 
     /**

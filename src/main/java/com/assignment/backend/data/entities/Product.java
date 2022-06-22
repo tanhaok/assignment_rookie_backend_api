@@ -61,10 +61,15 @@ public class Product {
     @PrimaryKeyJoinColumn
     private ProductDetail productDetail;
 
-    /**
-     * default constructor
-     */
     public Product() {
+        //default constructor
+    }
+    
+    /**
+     * @param proId
+     */
+    public Product(int proId) {
+        this.proId = proId;
     }
 
     /**

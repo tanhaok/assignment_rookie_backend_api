@@ -34,10 +34,16 @@ public class Category {
     @OneToOne(mappedBy = "category")
     private Product product;
 
-    /**
-     * 
-     */
+    
     public Category() {
+        // default con
+    }
+    
+    /**
+     * @param id
+     */
+    public Category(int id) {
+        this.id = id;
     }
 
     /**

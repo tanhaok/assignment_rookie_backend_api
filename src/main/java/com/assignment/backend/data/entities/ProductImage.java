@@ -27,10 +27,15 @@ public class ProductImage {
     @JoinColumn(name = "pro_id")
     private Product product;
 
-    /**
-     * default construction
-     */
     public ProductImage() {
+        //default con
+    }
+
+    /**
+     * @param id
+     */
+    public ProductImage(int id) {
+        this.id = id;
     }
 
     /**

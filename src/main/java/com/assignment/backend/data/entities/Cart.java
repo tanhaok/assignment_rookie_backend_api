@@ -38,10 +38,15 @@ public class Cart {
     @OneToMany(mappedBy = "cart", fetch = FetchType.LAZY)
     private Set<CartItem> cartItems;
 
-    /**
-     * 
-     */
     public Cart() {
+        //default con
+    }
+    
+    /**
+     * @param id
+     */
+    public Cart(int id) {
+        this.id = id;
     }
 
     /**

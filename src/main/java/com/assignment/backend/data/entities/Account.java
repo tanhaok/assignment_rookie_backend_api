@@ -48,10 +48,15 @@ public class Account {
     @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
     private Set<Ordered> orders;
 
-    /**
-     * default construction
-     */
     public Account() {
+        // default construction
+    }
+    
+    /**
+     * @param accId
+     */
+    public Account(int accId) {
+        this.accId = accId;
     }
 
     /**

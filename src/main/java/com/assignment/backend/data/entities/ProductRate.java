@@ -37,6 +37,23 @@ public class ProductRate {
     @JoinColumn(name = "pro_id")
     private Product product;
 
+    
+
+    /**
+     * @param id
+     */
+    public ProductRate(int id) {
+        this.id = id;
+    }
+
+    
+    /**
+     * 
+     */
+    public ProductRate() {
+    }
+
+
     /**
      * @return the id
      */
