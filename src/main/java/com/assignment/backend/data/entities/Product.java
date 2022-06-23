@@ -33,7 +33,7 @@ public class Product {
     private double price;
 
     @Column(name = "status")
-    private String status;
+    private Boolean status;
 
     @Column(name = "num_of_product")
     private int numOfProduct;
@@ -131,14 +131,14 @@ public class Product {
     /**
      * @return the status
      */
-    public String getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
     /**
      * @param status the status to set
      */
-    public void setStatus(String status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 
