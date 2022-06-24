@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 @Entity
 @Table(name = "category")
 public class Category {
@@ -26,10 +28,15 @@ public class Category {
     private String description;
 
     @Column(name = "create_date")
+    @CreationTimestamp
     private Date createDate;
 
     @Column(name = "update_date")
+    @CreationTimestamp
     private Date updateDate;
+
+    @Column(name = "status")
+    private String status;
 
     @OneToOne(mappedBy = "category")
     private Product product;
@@ -98,8 +105,8 @@ public class Category {
     /**
      * @param createDate the createDate to set
      */
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
+    public void setCreateDate() {
+        this.createDate = new Date();
     }
 
     /**
@@ -112,8 +119,8 @@ public class Category {
     /**
      * @param updateDate the updateDate to set
      */
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
+    public void setUpdateDate() {
+        this.updateDate = new Date();
     }
 
     /**
@@ -129,6 +136,21 @@ public class Category {
     public void setProduct(Product product) {
         this.product = product;
     }
+    
+    /**
+     * @return the status
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
 
     
 }
