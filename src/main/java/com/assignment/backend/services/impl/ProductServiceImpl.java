@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.assignment.backend.data.entities.Product;
 import com.assignment.backend.data.repositories.ProductRepository;
@@ -12,6 +13,7 @@ import com.assignment.backend.exceptions.ResourceNotFoundException;
 import com.assignment.backend.services.ProductService;
 import com.assignment.backend.utils.Message;
 
+@Service
 public class ProductServiceImpl implements ProductService {
 
     private ProductRepository productRepository;
@@ -42,11 +44,12 @@ public class ProductServiceImpl implements ProductService {
     }
     @Override
     public List<Product> getProductByCategory(String category) {
-        return this.productRepository.findByCategory(category);
+        return null;
     }
+    
 	@Override
 	public List<Product> getProduct() {
-		return this.productRepository.findByStatusTrue();
+        return null;
 	}
     
 }
