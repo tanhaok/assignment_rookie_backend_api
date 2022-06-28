@@ -2,8 +2,6 @@ package com.assignment.backend.dto.response;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class CategoryResponseDto {
 
     private int id;

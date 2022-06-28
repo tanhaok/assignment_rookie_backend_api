@@ -21,6 +21,7 @@ import com.assignment.backend.data.entities.Category;
 import com.assignment.backend.dto.request.CategoryCreateDto;
 import com.assignment.backend.dto.response.CategoryResponseDto;
 import com.assignment.backend.services.CategoryService;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/category")
