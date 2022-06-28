@@ -3,15 +3,27 @@ package com.assignment.backend.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.assignment.backend.data.entities.Product;
-import com.assignment.backend.services.ProductService;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import com.assignment.backend.data.entities.Product;
+import com.assignment.backend.data.entities.ProductImage;
+import com.assignment.backend.dto.request.ProductCreateDto;
+import com.assignment.backend.services.ProductImageService;
+import com.assignment.backend.services.ProductService;
+import com.assignment.backend.services.impl.ProductImageServiceImpl;
+import com.assignment.backend.utils.Status;
+
+@RestController
 @RequestMapping("/product")
+@CrossOrigin()
 public class ProductController {
 
     @Autowired
@@ -30,8 +42,8 @@ public class ProductController {
      */
 
     @GetMapping()
-    public List<Product> getProduct(){
-        return this.productService.getProduct(); 
+    public List<Product> getProductByStatus() {
+        return this.productService.getProductByStatus();
     } 
 
     @GetMapping("/all")
@@ -58,5 +70,35 @@ public class ProductController {
      * POST method
      */
 
-     
+    @PostMapping()
+    public ResponseEntity<Boolean> createNewProduct(@RequestBody ProductCreateDto productData) {
+        // create product and after that get id and save image
+        // System.out.print(productData.getImages().length);
+
+        Product newProduct = new Product();
+        newProduct.setCreateDate();
+        newProduct.setUpdateDate();
+        // newProduct.setCategory(productData.getCategoryId());
+        newProduct.setDescription(productData.getDescription());
+        newProduct.setName(productData.getName());
+        newProduct.setNumOfProduct(productData.getAmount());
+        newProduct.setPrice(productData.getPrice());
+        newProduct.setStatus(Status.PRODUCT_TRADING);
+
+        Product saveProduct = this.productService.createNewProduct(newProduct);
+        // int id = saveProduct.getProId();
+
+        ProductImageService productImageService = new ProductImageService();
+
+        for (String url : productData.getImages()) {
+            ProductImage productImage = new ProductImage();
+            productImage.setImgUrl(url);
+            productImage.setProduct(saveProduct);
+            productImage.setAlt("");
+            productImageService.saveAllImageForProduct(productImage);
+        }
+
+        return new ResponseEntity<>(true, HttpStatus.CREATED);
+    }
+
 }

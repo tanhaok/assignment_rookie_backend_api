@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -35,8 +34,8 @@ public class Product {
     @Column(name = "status")
     private Boolean status;
 
-    @Column(name = "num_of_product")
-    private int numOfProduct;
+    @Column(name = "amount")
+    private int amount;
 
     @Column(name = "create_date")
     private Date createDate;
@@ -56,10 +55,6 @@ public class Product {
 
     @OneToMany(mappedBy = "product")
     private Set<ProductRate> productRates;
-
-    @OneToOne(mappedBy = "product")
-    @PrimaryKeyJoinColumn
-    private ProductDetail productDetail;
 
     public Product() {
         //default constructor
@@ -146,14 +141,14 @@ public class Product {
      * @return the numOfProduct
      */
     public int getNumOfProduct() {
-        return numOfProduct;
+        return amount;
     }
 
     /**
      * @param numOfProduct the numOfProduct to set
      */
     public void setNumOfProduct(int numOfProduct) {
-        this.numOfProduct = numOfProduct;
+        this.amount = numOfProduct;
     }
 
     /**
@@ -166,8 +161,8 @@ public class Product {
     /**
      * @param createDate the createDate to set
      */
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
+    public void setCreateDate() {
+        this.createDate = new Date();
     }
 
     /**
@@ -180,8 +175,8 @@ public class Product {
     /**
      * @param updateDate the updateDate to set
      */
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
+    public void setUpdateDate() {
+        this.updateDate = new Date();
     }
 
     /**
@@ -240,17 +235,4 @@ public class Product {
         this.productRates = productRates;
     }
 
-    /**
-     * @return the productDetail
-     */
-    public ProductDetail getProductDetail() {
-        return productDetail;
-    }
-
-    /**
-     * @param productDetail the productDetail to set
-     */
-    public void setProductDetail(ProductDetail productDetail) {
-        this.productDetail = productDetail;
-    } 
 }

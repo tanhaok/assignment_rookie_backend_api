@@ -48,8 +48,13 @@ public class ProductServiceImpl implements ProductService {
     }
     
 	@Override
-	public List<Product> getProduct() {
+    public List<Product> getProductByStatus() {
         return null;
 	}
+
+    @Override
+    public Product createNewProduct(Product product) {
+        return this.productRepository.save(product);
+    }
     
 }

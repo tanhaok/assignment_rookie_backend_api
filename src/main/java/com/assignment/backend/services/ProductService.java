@@ -10,7 +10,7 @@ public interface ProductService {
      * get all product when status = true
      * @return list of product
      */
-    public List<Product> getProduct();
+    public List<Product> getProductByStatus();
 
     /**
      * get all product do not consider any conditions
@@ -24,5 +24,7 @@ public interface ProductService {
     public List<Product> getProductByRate();
 
     public List<Product> getProductByCategory(String category);
+
+    public Product createNewProduct(Product product);
 
 }
