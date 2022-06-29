@@ -20,9 +20,6 @@ public class ProductImage {
     @Column(name = "img_url")
     private String imgUrl;
 
-    @Column(name = "alt")
-    private String alt;
-
     @ManyToOne
     @JoinColumn(name = "pro_id")
     private Product product;
@@ -64,20 +61,6 @@ public class ProductImage {
      */
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
-    }
-
-    /**
-     * @return the alt
-     */
-    public String getAlt() {
-        return alt;
-    }
-
-    /**
-     * @param alt the alt to set
-     */
-    public void setAlt(String alt) {
-        this.alt = alt;
     }
 
     /**
