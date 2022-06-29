@@ -1,12 +1,15 @@
 package com.assignment.backend.data.entities;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -38,8 +41,8 @@ public class Category {
     @Column(name = "status")
     private String status;
 
-    @OneToOne(mappedBy = "category")
-    private Product product;
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+    private Set<Product> product;
 
     
     public Category() {
@@ -126,14 +129,14 @@ public class Category {
     /**
      * @return the product
      */
-    public Product getProduct() {
+    public Set<Product> getProduct() {
         return product;
     }
 
     /**
      * @param product the product to set
      */
-    public void setProduct(Product product) {
+    public void setProduct(Set<Product> product) {
         this.product = product;
     }
     
