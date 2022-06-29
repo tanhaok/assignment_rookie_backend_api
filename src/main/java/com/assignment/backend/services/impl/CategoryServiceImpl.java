@@ -2,6 +2,7 @@ package com.assignment.backend.services.impl;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,8 +38,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<Category> getAllCategory() {
-        return this.categoryRepository.findAll();
+    public List<CategoryResponseDto> getAllCategory() {
+        List<Category> lCategories = this.categoryRepository.findAll();
+        List<CategoryResponseDto> result = new ArrayList<>();
+        for (Category cate : lCategories) {
+            result.add(this.modelMapper.map(cate, CategoryResponseDto.class));
+        }
+        return result;
     }
 
     @Override
@@ -74,4 +80,13 @@ public class CategoryServiceImpl implements CategoryService {
         return modelMapper.map(category, CategoryResponseDto.class);
     }
 
+    @Override
+    public Category getCategoryById(int id) {
+        Optional<Category> categoryOptional = this.categoryRepository.findById(id);
+        Category category = new Category();
+        if (categoryOptional.isPresent()) {
+            category = categoryOptional.get();
+        }
+        return category;
+    }
 }

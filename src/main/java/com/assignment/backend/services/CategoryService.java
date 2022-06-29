@@ -9,8 +9,9 @@ import com.assignment.backend.dto.response.CategoryResponseDto;
 
 
 public interface CategoryService {
-    public List<Category > getAllCategory();
+    public List<CategoryResponseDto > getAllCategory();
     public CategoryResponseDto createNewCategory(CategoryCreateDto dto);
     public CategoryResponseDto updateCategory(int id, CategoryCreateDto dto);
     public CategoryResponseDto updateCategoryStatus(int id);
+    public Category getCategoryById(int id);
 }

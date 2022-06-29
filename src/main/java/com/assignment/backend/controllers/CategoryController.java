@@ -52,7 +52,7 @@ public class CategoryController {
     }
 
     @GetMapping()
-    public List<Category> getAllCategory() {
+    public List<CategoryResponseDto> getAllCategory() {
         return this.categoryService.getAllCategory();
     }
 
