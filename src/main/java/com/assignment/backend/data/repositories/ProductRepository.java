@@ -9,8 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
-
-    // List<Product> findByCategory(String category);
-    // List<Product> getProductByRate();
-    // List<Product> findByStatusTrue();
+    List<Product> findByStatus(Boolean status);
 }

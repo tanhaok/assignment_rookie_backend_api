@@ -1,7 +1,8 @@
 package com.assignment.backend.services;
 
-import com.assignment.backend.data.entities.ProductImage;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 public interface ProductImageService {
-    public ProductImage saveAllImageForProduct(ProductImage productImage);
+    public ResponseEntity<HttpStatus> deleteImage(int id);
 }

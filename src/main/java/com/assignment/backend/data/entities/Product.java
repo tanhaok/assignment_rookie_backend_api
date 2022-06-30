@@ -16,7 +16,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.ManyToAny;
 
 @Entity
 @Table(name = "product")
@@ -141,18 +140,19 @@ public class Product {
         this.status = status;
     }
 
+
     /**
-     * @return the numOfProduct
+     * @return the amount
      */
-    public int getNumOfProduct() {
+    public int getAmount() {
         return amount;
     }
 
     /**
-     * @param numOfProduct the numOfProduct to set
+     * @param amount the amount to set
      */
-    public void setNumOfProduct(int numOfProduct) {
-        this.amount = numOfProduct;
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
     /**
