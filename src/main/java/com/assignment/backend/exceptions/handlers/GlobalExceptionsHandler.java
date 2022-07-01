@@ -14,6 +14,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.assignment.backend.dto.response.Error;
+import com.assignment.backend.exceptions.ResourceAlreadyExistsException;
 import com.assignment.backend.exceptions.ResourceNotFoundException;
 
 @ControllerAdvice
@@ -23,13 +24,20 @@ public class GlobalExceptionsHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({ResourceNotFoundException.class})
     protected ResponseEntity<Error> handleResourceNotFoundException(RuntimeException exception, WebRequest req){
         Error error = new Error("404", exception.getMessage());
-        return new ResponseEntity<Error>(error, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler({ ResourceAlreadyExistsException.class })
+    protected ResponseEntity<Error> handleResourceAlreadyExistsException(RuntimeException exception,
+            WebRequest request) {
+        Error error = new Error("400", exception.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler({IllegalArgumentException.class})
     protected ResponseEntity<Error> handleIllegalArgumentException(RuntimeException exception, WebRequest request){
         Error error = new Error("400", exception.getMessage());
-        return new ResponseEntity<Error>(error, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
     @Override

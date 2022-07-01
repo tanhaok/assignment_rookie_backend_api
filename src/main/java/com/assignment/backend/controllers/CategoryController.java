@@ -23,7 +23,7 @@ import com.assignment.backend.services.CategoryService;
 
 @RestController
 @RequestMapping("/category")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class CategoryController {
 
     private CategoryService categoryService;

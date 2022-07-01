@@ -22,7 +22,7 @@ import com.assignment.backend.services.ProductService;
 
 @RestController
 @RequestMapping("/product")
-@CrossOrigin()
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class ProductController {
 
     @Autowired

@@ -1,6 +1,7 @@
 package com.assignment.backend.data.entities;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -9,13 +10,15 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "account")
+@Table(name = "account", uniqueConstraints = { @UniqueConstraint(columnNames = "username") })
 public class Account {
 
     @Id
@@ -29,18 +32,24 @@ public class Account {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "role")
-    private String role;
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "phone")
+    private String phone;
 
     @Column(name = "create_date")
     private Date createDate;
 
     @Column(name = "update_date")
     private Date updateDate;
-    
-    @OneToOne(mappedBy = "account", fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
-    private AccountInfo accountInfo;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "account_roles", joinColumns = @JoinColumn(name = "acc_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
     private Set<Cart> carts;
@@ -51,12 +60,68 @@ public class Account {
     public Account() {
         // default construction
     }
-    
+
+    /**
+     * @return the roles
+     */
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    /**
+     * @param roles the roles to set
+     */
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
     /**
      * @param accId
      */
     public Account(int accId) {
         this.accId = accId;
+    }
+
+    /**
+     * @return the address
+     */
+    public String getAddress() {
+        return address;
+    }
+
+    /**
+     * @param address the address to set
+     */
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * @return the phone
+     */
+    public String getPhone() {
+        return phone;
+    }
+
+    /**
+     * @param phone the phone to set
+     */
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     /**
@@ -102,20 +167,6 @@ public class Account {
     }
 
     /**
-     * @return the role
-     */
-    public String getRole() {
-        return role;
-    }
-
-    /**
-     * @param role the role to set
-     */
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    /**
      * @return the createDate
      */
     public Date getCreateDate() {
@@ -141,20 +192,6 @@ public class Account {
      */
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
-    }
-
-    /**
-     * @return the accountInfo
-     */
-    public AccountInfo getAccountInfo() {
-        return accountInfo;
-    }
-
-    /**
-     * @param accountInfo the accountInfo to set
-     */
-    public void setAccountInfo(AccountInfo accountInfo) {
-        this.accountInfo = accountInfo;
     }
 
     /**
