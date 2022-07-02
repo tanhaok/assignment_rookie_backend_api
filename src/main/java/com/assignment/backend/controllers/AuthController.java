@@ -1,25 +1,32 @@
 package com.assignment.backend.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.assignment.backend.dto.request.RegisterRequestDto;
 import com.assignment.backend.dto.request.SignInRequestDto;
+import com.assignment.backend.dto.response.AuthResponseDto;
 import com.assignment.backend.services.AuthService;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/v1/auth")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class AuthController {
 
-    @Autowired
     private AuthService authService;
 
+    @Autowired
+    public AuthController(AuthService authService) {
+        this.authService = authService;
+    }
     /**
      * Sign In function
      * 
@@ -27,7 +34,7 @@ public class AuthController {
      * @return a token
      */
     @PostMapping("/signin")
-    public String signIn(@RequestBody SignInRequestDto dto) {
+    public AuthResponseDto signIn(@RequestBody SignInRequestDto dto) {
         return this.authService.signIn(dto);
     }
 
@@ -38,7 +45,7 @@ public class AuthController {
      * @return a token
      */
     @PostMapping("/register")
-    public String registerUser(@RequestBody RegisterRequestDto dto) {
+    public AuthResponseDto registerUser(@RequestBody RegisterRequestDto dto) {
         return this.authService.registerUser(dto);
     }
 }

@@ -7,26 +7,19 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.assignment.backend.security.services.UserDetailsServiceImpl;
 
 @Component
 public class JwtAuthTokenFilter extends OncePerRequestFilter {
 
     private final JwtUtils jwtUtils;
 
-    private final UserDetailsServiceImpl userDetailsService;
 
-    public JwtAuthTokenFilter(JwtUtils jwtUtils, UserDetailsServiceImpl userDetailsServiceImpl) {
+    public JwtAuthTokenFilter(JwtUtils jwtUtils) {
         this.jwtUtils = jwtUtils;
-        this.userDetailsService = userDetailsServiceImpl;
     }
 
     @Override
@@ -36,13 +29,6 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
             String jwt = parseJwt(request);
             if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
                 String username = jwtUtils.getUsernameFromJwtToken(jwt);
-                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities());
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-                SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         } catch (Exception e) {
             System.err.println("Cannot set user authentication: "+ e.getMessage());

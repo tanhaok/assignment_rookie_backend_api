@@ -19,9 +19,7 @@ import com.assignment.backend.dto.response.ProductResponseDto;
 import com.assignment.backend.exceptions.ResourceNotFoundException;
 import com.assignment.backend.services.CategoryService;
 import com.assignment.backend.services.ProductService;
-import com.assignment.backend.utils.Calculate;
-import com.assignment.backend.utils.Message;
-import com.assignment.backend.utils.Status;
+import com.assignment.backend.utils.Utils;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -47,7 +45,7 @@ public class ProductServiceImpl implements ProductService {
         for (Product product : lProducts) {
             ProductResponseDto newProduct = modelMapper.map(product, ProductResponseDto.class);
             // calculate rating of product
-            newProduct.setRate(Calculate.rate(product.getProductRates()));
+            newProduct.setRate(Utils.rate(product.getProductRates()));
             result.add(newProduct);
         }
         return result;
@@ -60,7 +58,7 @@ public class ProductServiceImpl implements ProductService {
             Product product  = productOptional.get();
             return modelMapper.map(product, ProductResponseDto.class);
         }
-        throw new  ResourceNotFoundException(Message.PRODUCT_NOT_FOUND);
+        throw new ResourceNotFoundException(Utils.PRODUCT_NOT_FOUND);
     }
 
     @Override
@@ -74,15 +72,15 @@ public class ProductServiceImpl implements ProductService {
     
 	@Override
     public List<ProductResponseDto> getProductOnTrading() {
-        List<Product> lProducts = this.productRepository.findByStatus(Status.PRODUCT_TRADING);
+        List<Product> lProducts = this.productRepository.findByStatus(Utils.PRODUCT_TRADING);
         if (lProducts.isEmpty()) {
-            throw new ResourceNotFoundException(Message.NO_PRODUCT);
+            throw new ResourceNotFoundException(Utils.NO_PRODUCT);
         }
 
         List<ProductResponseDto> result = new ArrayList<>();
         for (Product product : lProducts) {
             ProductResponseDto productDto = modelMapper.map(product, ProductResponseDto.class);
-            productDto.setRate(Calculate.rate(product.getProductRates()));
+            productDto.setRate(Utils.rate(product.getProductRates()));
             result.add(productDto);
         }
         return result;
@@ -111,7 +109,7 @@ public class ProductServiceImpl implements ProductService {
         newProduct.setDescription(productCreateDto.getDescription());
         newProduct.setAmount(productCreateDto.getAmount());
         newProduct.setPrice(productCreateDto.getPrice());
-        newProduct.setStatus(Status.PRODUCT_TRADING);
+        newProduct.setStatus(Utils.PRODUCT_TRADING);
         Product saveProduct = this.productRepository.save(newProduct);
 
         // save image
@@ -135,7 +133,7 @@ public class ProductServiceImpl implements ProductService {
 
         }
 
-        throw new ResourceNotFoundException(Message.PRODUCT_NOT_FOUND);
+        throw new ResourceNotFoundException(Utils.PRODUCT_NOT_FOUND);
     }
 
     @Override
@@ -159,7 +157,7 @@ public class ProductServiceImpl implements ProductService {
             return modelMapper.map(newProduct, ProductResponseDto.class);
 
         }
-        throw new ResourceNotFoundException(Message.PRODUCT_NOT_FOUND);
+        throw new ResourceNotFoundException(Utils.PRODUCT_NOT_FOUND);
     }
     
 }

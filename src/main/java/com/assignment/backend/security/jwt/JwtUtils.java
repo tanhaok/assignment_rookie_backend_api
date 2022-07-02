@@ -2,11 +2,10 @@ package com.assignment.backend.security.jwt;
 
 import java.util.Date;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import com.assignment.backend.security.services.UserDetailsImpl;
+import com.assignment.backend.data.entities.Account;
+import com.assignment.backend.utils.Utils;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -18,29 +17,19 @@ import io.jsonwebtoken.UnsupportedJwtException;
 @Component
 public class JwtUtils {
 
-    private String jwtSecret;
-    private int jwtExp;
-
-    public JwtUtils(@Value("${assignment-jwtSecret}") final String jwtSecret,
-            @Value("${assignment-jwtExp}") final int exp) {
-        this.jwtSecret = jwtSecret;
-        this.jwtExp = exp;
-    }
-
-    public String generateJwtToken(Authentication authentication) {
-        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
+    public String generateJwtToken(Account account) {
         return Jwts
                 .builder()
-                .setSubject(userPrincipal.getUsername()).setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + this.jwtExp))
-                .signWith(SignatureAlgorithm.ES512, this.jwtSecret)
+                .setSubject(account.getUsername())
+                .setExpiration(new Date((new Date()).getTime() + Utils.JWT_EXP))
+                .signWith(SignatureAlgorithm.HS256, Utils.JWT_SECRET)
                 .compact();
     }
 
     public String getUsernameFromJwtToken(String token) {
         return Jwts
                 .parser()
-                .setSigningKey(this.jwtSecret)
+                .setSigningKey(Utils.JWT_SECRET)
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
@@ -48,7 +37,7 @@ public class JwtUtils {
 
     public Boolean validateJwtToken(String authToken) {
         try {
-            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
+            Jwts.parser().setSigningKey(Utils.JWT_SECRET).parseClaimsJws(authToken);
             return true;
         } catch (SignatureException e) {
             System.err.println("Invalid JWT signature: " + e.getMessage());

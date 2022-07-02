@@ -15,7 +15,7 @@ import com.assignment.backend.dto.request.CategoryCreateDto;
 import com.assignment.backend.dto.response.CategoryResponseDto;
 import com.assignment.backend.exceptions.ResourceNotFoundException;
 import com.assignment.backend.services.CategoryService;
-import com.assignment.backend.utils.Status;
+import com.assignment.backend.utils.Utils;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -32,7 +32,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryResponseDto createNewCategory(CategoryCreateDto dto) {
         Category category = modelMapper.map(dto, Category.class);
-        category.setStatus(Status.CATEGORY_ACTIVE);
+        category.setStatus(Utils.CATEGORY_ACTIVE);
         Category saveCategory = this.categoryRepository.save(category);
         return modelMapper.map(saveCategory, CategoryResponseDto.class);
     }
@@ -70,9 +70,9 @@ public class CategoryServiceImpl implements CategoryService {
 
         Category category = categoryOptional.get();
         if ("Active".equals(category.getStatus())) {
-            category.setStatus(Status.CATEGORY_DEACTIVATE);
+            category.setStatus(Utils.CATEGORY_DEACTIVATE);
         } else {
-            category.setStatus(Status.CATEGORY_ACTIVE);
+            category.setStatus(Utils.CATEGORY_ACTIVE);
         }
 
         category.setUpdateDate();

@@ -47,9 +47,11 @@ public class Account {
     @Column(name = "update_date")
     private Date updateDate;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "account_roles", joinColumns = @JoinColumn(name = "acc_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
+    @Column(name = "status")
+    private boolean status;
+
+    @Column(name = "role")
+    private String role;
 
     @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
     private Set<Cart> carts;
@@ -62,18 +64,34 @@ public class Account {
     }
 
     /**
-     * @return the roles
+     * @return the status
      */
-    public Set<Role> getRoles() {
-        return roles;
+    public boolean isStatus() {
+        return status;
     }
 
     /**
-     * @param roles the roles to set
+     * @param status the status to set
      */
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
+
+    /**
+     * @return the role
+     */
+    public String getRole() {
+        return role;
+    }
+
+
+    /**
+     * @param role the role to set
+     */
+    public void setRole(String role) {
+        this.role = role;
+    }
+
 
     /**
      * @param accId

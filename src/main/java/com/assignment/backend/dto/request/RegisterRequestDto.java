@@ -12,25 +12,6 @@ public class RegisterRequestDto {
     @NotBlank(message = "Password is required!")
     private String password;
 
-    /**
-     * @param username
-     * @param password
-     * @param address
-     * @param email
-     * @param phone
-     */
-    public RegisterRequestDto(@NotBlank(message = "Username is required!") String username,
-            @NotBlank(message = "Password is required!") String password,
-            @NotBlank(message = "Address is required!") String address,
-            @NotBlank(message = "Email is required!") String email,
-            @NotBlank(message = "Phone is required!") String phone) {
-        this.username = username;
-        this.password = password;
-        this.address = address;
-        this.email = email;
-        this.phone = phone;
-    }
-
     @NotBlank(message = "Address is required!")
     private String address;
 
@@ -39,12 +20,6 @@ public class RegisterRequestDto {
 
     @NotBlank(message = "Phone is required!")
     private String phone;
-
-    /**
-     * 
-     */
-    public RegisterRequestDto() {
-    }
 
     /**
      * @return the username
