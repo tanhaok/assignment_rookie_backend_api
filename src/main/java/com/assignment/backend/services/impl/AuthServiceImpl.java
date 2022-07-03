@@ -40,8 +40,6 @@ public class AuthServiceImpl implements AuthService {
         Account acc = this.accountRepository.findByUsername(dto.getUsername())
                 .orElseThrow(() -> new Unauthorized(Utils.ACCOUNT_NOT_FOUND));
 
-        System.out.println(acc.getPassword());
-        System.out.println(dto.getPassword());
         if (!encoder.matches(dto.getPassword(), acc.getPassword())) {
             throw new Unauthorized(Utils.WRONG_PASS);
         }

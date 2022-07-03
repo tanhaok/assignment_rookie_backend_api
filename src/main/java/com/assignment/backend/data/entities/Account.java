@@ -17,6 +17,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 @Entity
 @Table(name = "account", uniqueConstraints = { @UniqueConstraint(columnNames = "username") })
 public class Account {
@@ -41,10 +44,12 @@ public class Account {
     @Column(name = "phone")
     private String phone;
 
-    @Column(name = "create_date")
+    @Column(name = "create_date", updatable = false)
+    @CreationTimestamp
     private Date createDate;
 
     @Column(name = "update_date")
+    @UpdateTimestamp
     private Date updateDate;
 
     @Column(name = "status")

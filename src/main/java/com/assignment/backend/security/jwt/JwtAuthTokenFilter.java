@@ -7,6 +7,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -16,10 +21,12 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class JwtAuthTokenFilter extends OncePerRequestFilter {
 
     private final JwtUtils jwtUtils;
+    private UserDetailsService userDetailsService;
 
 
-    public JwtAuthTokenFilter(JwtUtils jwtUtils) {
+    public JwtAuthTokenFilter(JwtUtils jwtUtils, UserDetailsService userDetailsService) {
         this.jwtUtils = jwtUtils;
+        this.userDetailsService = userDetailsService;
     }
 
     @Override
@@ -29,6 +36,17 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
             String jwt = parseJwt(request);
             if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
                 String username = jwtUtils.getUsernameFromJwtToken(jwt);
+                System.out.println(username);
+
+                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                System.out.println(userDetails.getPassword());
+                System.out.println(userDetails.getAuthorities().size());
+
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                        userDetails, null, userDetails.getAuthorities());
+
+                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         } catch (Exception e) {
             System.err.println("Cannot set user authentication: "+ e.getMessage());

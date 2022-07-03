@@ -7,7 +7,7 @@ import com.assignment.backend.data.entities.ProductRate;
 public class Utils {
 
     public static final String JWT_SECRET = "Rookie_Batch_5";
-    public static final int JWT_EXP = 3600;
+    public static final int JWT_EXP = 840000;
 
     public static final Boolean PRODUCT_TRADING = true;
     public static final Boolean PRODUCT_STOP_TRADE = false;
