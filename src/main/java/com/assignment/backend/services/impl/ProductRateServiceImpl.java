@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.assignment.backend.data.entities.Product;
 import com.assignment.backend.data.entities.ProductRate;
 import com.assignment.backend.data.repositories.ProductRateRepository;
 import com.assignment.backend.data.repositories.ProductRepository;
@@ -35,8 +36,8 @@ public class ProductRateServiceImpl implements ProductRateService {
 
         // TODO change this
         // check account nay da review product nay chua
-        Optional<ProductRate> pRate = productRateRepository.findByAccIdAndProduct(dto.getAccId(),
-                productRepository.findById(dto.getProId()));
+        Product pro = productRepository.findById(dto.getProId()).orElseThrow(() -> new ResourceNotFoundException());
+        Optional<ProductRate> pRate = productRateRepository.findByAccIdAndProduct(dto.getAccId(), pro);
         if (pRate.isPresent()) {
             // throw new ()
         }

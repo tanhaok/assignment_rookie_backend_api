@@ -13,5 +13,5 @@ import com.assignment.backend.data.entities.ProductRate;
 public interface ProductRateRepository extends JpaRepository<ProductRate, Integer> {
     List<ProductRate> findByStatus(boolean status);
 
-    Optional<ProductRate> findByAccIdAndProduct(int accId, Optional<Product> optional);
+    Optional<ProductRate> findByAccIdAndProduct(int accId, Product optional);
 }
