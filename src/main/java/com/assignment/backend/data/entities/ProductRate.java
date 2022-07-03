@@ -11,6 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 @Entity
 @Table(name = "product_rate")
 public class ProductRate {
@@ -27,17 +30,20 @@ public class ProductRate {
     @Column(name = "comment")
     private String comment;
 
-    @Column(name = "create_date")
+    @Column(name = "create_date", updatable = false)
+    @CreationTimestamp
     private Date createDate;
 
     @Column(name = "updated_date")
+    @UpdateTimestamp
     private Date updateDate;
+
+    @Column(name = "status")
+    private boolean status;
 
     @ManyToOne
     @JoinColumn(name = "pro_id")
     private Product product;
-
-    
 
     /**
      * @param id
@@ -150,6 +156,22 @@ public class ProductRate {
      */
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+
+    /**
+     * @return the status
+     */
+    public boolean isStatus() {
+        return status;
+    }
+
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     
