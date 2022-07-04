@@ -7,7 +7,7 @@ import java.util.List;
 public class OrderResponseDto {
     private int orderId;
     private int accId;
-    private List<ProductItemResponseDto> products;
+    private List<CartItemResponseDto> products;
     private String status;
     private Date createDate;
     private Date updateDate;
@@ -72,14 +72,14 @@ public class OrderResponseDto {
     /**
      * @return the products
      */
-    public List<ProductItemResponseDto> getProducts() {
+    public List<CartItemResponseDto> getProducts() {
         return products;
     }
 
     /**
      * @param products the products to set
      */
-    public void setProducts(List<ProductItemResponseDto> products) {
+    public void setProducts(List<CartItemResponseDto> products) {
         this.products = products;
     }
 

@@ -19,7 +19,7 @@ import com.assignment.backend.data.repositories.OrderRepository;
 import com.assignment.backend.data.repositories.ProductRepository;
 import com.assignment.backend.dto.request.OrderCreateDto;
 import com.assignment.backend.dto.response.OrderResponseDto;
-import com.assignment.backend.dto.response.ProductItemResponseDto;
+import com.assignment.backend.dto.response.CartItemResponseDto;
 import com.assignment.backend.dto.response.SuccessResponse;
 import com.assignment.backend.exceptions.ResourceNotFoundException;
 import com.assignment.backend.services.OrderService;
@@ -46,9 +46,17 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public ResponseEntity<?> createNewOrder(OrderCreateDto dto) {
+        // check valid account is exist?
         Account acc = this.accountRepository.findById(dto.getAccId())
                 .orElseThrow(() -> new ResourceNotFoundException(Utils.NO_ACCOUNT));
 
+        // Check cart is exist and set status to DONE
+        Cart cart = this.cartRepository.findById(dto.getCartId())
+                .orElseThrow(() -> new ResourceNotFoundException(Utils.NO_CART));
+        cart.setActive(false);
+        this.cartRepository.save(cart);
+
+        // create new ordered
         Ordered order = new Ordered();
         order.setCartId(dto.getCartId());
         order.setAccount(acc);
@@ -67,9 +75,9 @@ public class OrderServiceImpl implements OrderService {
             // get all product in cart
             Cart cart = this.cartRepository.findById(ordered.getCartId())
                     .orElseThrow(() -> new ResourceNotFoundException(Utils.NO_CART));
-            List<ProductItemResponseDto> listProduct = new ArrayList<>();
+            List<CartItemResponseDto> listProduct = new ArrayList<>();
             for (CartItem item : cart.getCartItems()) {
-                ProductItemResponseDto proItem = new ProductItemResponseDto();
+                CartItemResponseDto proItem = new CartItemResponseDto();
                 listProduct.add(proItem.build(item.getProduct(), item.getQuantity()));
             }
 
