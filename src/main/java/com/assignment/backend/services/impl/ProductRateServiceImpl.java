@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +17,10 @@ import com.assignment.backend.data.repositories.ProductRepository;
 import com.assignment.backend.dto.request.ProductRateCreateDto;
 import com.assignment.backend.dto.response.Error;
 import com.assignment.backend.dto.response.ProductRateResponseDto;
+import com.assignment.backend.dto.response.SuccessResponse;
 import com.assignment.backend.exceptions.ResourceNotFoundException;
 import com.assignment.backend.services.ProductRateService;
+import com.assignment.backend.utils.Utils;
 
 @Service
 public class ProductRateServiceImpl implements ProductRateService {
@@ -42,7 +45,7 @@ public class ProductRateServiceImpl implements ProductRateService {
             // throw new ()
         }
         this.productRateRepository.save(modelMapper.map(dto, ProductRate.class));
-        return ResponseEntity.ok(new Error("201", "Create successfully"));
+        return ResponseEntity.ok(new SuccessResponse(HttpStatus.CREATED, "Create successfully"));
     }
 
     @Override
@@ -55,8 +58,7 @@ public class ProductRateServiceImpl implements ProductRateService {
         }
 
         if (lProductRates.isEmpty()) {
-            // TODO: add message
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException(Utils.NO_PRODUCT);
         }
 
         List<ProductRateResponseDto> result = new ArrayList<>();
@@ -69,13 +71,15 @@ public class ProductRateServiceImpl implements ProductRateService {
     @Override
     public ResponseEntity<?> changeStatus(int rateId) {
         ProductRate productRateOptional = this.productRateRepository.findById(rateId)
-                .orElseThrow(() -> new ResourceNotFoundException());
+                .orElseThrow(() -> new ResourceNotFoundException(Utils.PRODUCT_NOT_FOUND));
 
         boolean oldStatus = productRateOptional.isStatus();
         productRateOptional.setStatus(!oldStatus);
         this.productRateRepository.save(productRateOptional);
 
-        return ResponseEntity.ok(new Error());
+        return ResponseEntity.ok(
+                new SuccessResponse(HttpStatus.OK,
+                        "Change status have Id: " + rateId + " to " + !oldStatus + " successfully"));
     }
 
 }

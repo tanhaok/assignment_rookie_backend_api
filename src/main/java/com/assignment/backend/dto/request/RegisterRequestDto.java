@@ -1,7 +1,5 @@
 package com.assignment.backend.dto.request;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 public class RegisterRequestDto {
