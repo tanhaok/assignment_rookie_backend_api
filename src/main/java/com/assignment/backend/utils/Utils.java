@@ -17,6 +17,9 @@ public class Utils {
     public static final String PRODUCT_NOT_FOUND = "Product Not Found";
     public static final String NO_PRODUCT = "No Products Were Found";
 
+    public static final String NO_CART = "No product in cart";
+    public static final String CREATE_ORDER = "Ordered has been created";
+    public static final String NO_ORDER = "No order founded with that account";
     public static final String NO_ACCOUNT = "No Account Were Found";
     public static final String ACC_UPDATE = "Account updated successfully";
     public static final String ACC_DELETE = "Change status of account to FALSE.";

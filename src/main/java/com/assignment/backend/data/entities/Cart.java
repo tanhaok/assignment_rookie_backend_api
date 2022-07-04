@@ -35,7 +35,7 @@ public class Cart {
     @JoinColumn(name = "acc_id")
     private Account account;
 
-    @OneToMany(mappedBy = "cart", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cart", fetch = FetchType.EAGER)
     private Set<CartItem> cartItems;
 
     public Cart() {
