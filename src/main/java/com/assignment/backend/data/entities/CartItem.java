@@ -5,13 +5,16 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "cart_item")
+@IdClass(CartItemId.class)
 public class CartItem implements Serializable{
 
     @Id
@@ -26,17 +29,28 @@ public class CartItem implements Serializable{
     private int quantity;
     
     @ManyToOne
-    @JoinColumn(name = "cart_id")
+    @JoinColumn(name = "cart_id", insertable = false, updatable = false)
     private Cart cart;
 
     @OneToOne
-    @JoinColumn(name = "pro_id", referencedColumnName = "pro_id")
+    @JoinColumn(name = "pro_id", referencedColumnName = "pro_id", insertable = false, updatable = false)
     private Product product;
 
     /**
      * 
      */
     public CartItem() {
+    }
+
+    /**
+     * @param cartId
+     * @param proId
+     * @param quantity
+     */
+    public CartItem(int cartId, int proId, int quantity) {
+        this.cartId = cartId;
+        this.proId = proId;
+        this.quantity = quantity;
     }
 
     /**

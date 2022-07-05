@@ -82,11 +82,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category getCategoryById(int id) {
-        Optional<Category> categoryOptional = this.categoryRepository.findById(id);
-        Category category = new Category();
-        if (categoryOptional.isPresent()) {
-            category = categoryOptional.get();
-        }
-        return category;
+        return this.categoryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException());
     }
 }

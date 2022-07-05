@@ -1,11 +1,10 @@
 package com.assignment.backend.controllers;
 
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -14,24 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.assignment.backend.dto.request.CartItemCreateDto;
-import com.assignment.backend.dto.response.CartItemResponseDto;
 import com.assignment.backend.dto.response.CartResponseDto;
 import com.assignment.backend.dto.response.SuccessResponse;
+import com.assignment.backend.services.CartService;
 
 @RestController
 @CrossOrigin(value = "*", maxAge = 3600)
 @RequestMapping("/api/v1/cart")
 public class CartController {
 
-    /**
-     * just for admin
-     * 
-     * @return
-     */
-    @GetMapping("/all")
-    public List<CartItemResponseDto> getAllCart() {
-        return null;
-    }
+    @Autowired
+    private CartService cartService;
 
     /**
      * for user get all
@@ -41,22 +33,22 @@ public class CartController {
      */
     @GetMapping("/{id}")
     public CartResponseDto getCartByAccount(@PathVariable int id) {
-        return null;
+        return this.cartService.getCartByAccount(id);
     }
 
     @PostMapping()
     public ResponseEntity<SuccessResponse> addProductIntoCart(@RequestBody CartItemCreateDto dto) {
-        return null;
+        return this.cartService.addProductToCart(dto);
     }
 
     @PutMapping()
     public ResponseEntity<SuccessResponse> updateQuantityProduct(@RequestBody CartItemCreateDto dto) {
-        return null;
+        return this.cartService.updateQuantityProduct(dto);
     }
 
-    @PatchMapping()
+    @DeleteMapping()
     public ResponseEntity<SuccessResponse> deleteProductOutOfCart(int proId, int cartId) {
-        return null;
+        return this.cartService.deleteProductOutOfCart(proId, cartId);
     }
 
 }
