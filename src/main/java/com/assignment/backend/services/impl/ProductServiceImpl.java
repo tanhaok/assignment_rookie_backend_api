@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.assignment.backend.data.entities.Category;
 import com.assignment.backend.data.entities.Product;
 import com.assignment.backend.data.entities.ProductImage;
+import com.assignment.backend.data.repositories.CategoryRepository;
 import com.assignment.backend.data.repositories.ProductImageRepository;
 import com.assignment.backend.data.repositories.ProductRepository;
 import com.assignment.backend.dto.request.ProductCreateDto;
@@ -26,15 +27,15 @@ public class ProductServiceImpl implements ProductService {
 
     private ProductRepository productRepository;
     private ModelMapper modelMapper;
-    private CategoryService categoryService;
+    private CategoryRepository categoryRepository;
     private ProductImageRepository productImageRepository;
 
     @Autowired
     public ProductServiceImpl(ProductRepository productRepository, ModelMapper modelMapper,
-            CategoryService categoryService, ProductImageRepository productImageRepository) {
+            CategoryRepository categoryRepository, ProductImageRepository productImageRepository) {
         this.productRepository = productRepository;
         this.modelMapper = modelMapper;
-        this.categoryService = categoryService;
+        this.categoryRepository = categoryRepository;
         this.productImageRepository = productImageRepository;
     }
 
@@ -99,7 +100,8 @@ public class ProductServiceImpl implements ProductService {
     public ProductResponseDto createNewProduct(ProductCreateDto productCreateDto) {
 
         // get category
-        Category category = this.categoryService.getCategoryById(productCreateDto.getCategoryId());
+        Category category = this.categoryRepository.findById(productCreateDto.getCategoryId())
+                .orElseThrow(() -> new ResourceNotFoundException());
 
         Product newProduct = new Product();
         newProduct.setCategory(category);
@@ -139,8 +141,9 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductResponseDto updateProduct(int id, ProductCreateDto productCreateDto) {
         Optional<Product> productOptional = this.productRepository.findById(id);
-        Category category = this.categoryService.getCategoryById(productCreateDto.getCategoryId());
-
+        Category category = this.categoryRepository.findById(productCreateDto.getCategoryId())
+                .orElseThrow(() -> new ResourceNotFoundException());
+                
         if (productOptional.isPresent()) {
             Product pro = productOptional.get();
             pro.setUpdateDate();

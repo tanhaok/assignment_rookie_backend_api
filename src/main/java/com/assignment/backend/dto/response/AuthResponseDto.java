@@ -1,5 +1,6 @@
 package com.assignment.backend.dto.response;
 
+
 public class AuthResponseDto {
     private int accId;
     private String username;

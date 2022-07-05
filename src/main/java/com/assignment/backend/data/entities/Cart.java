@@ -22,8 +22,8 @@ public class Cart {
     @Column(name = "cart_id")
     private int id;
 
-    @Column(name = "status")
-    private String status;
+    @Column(name = "active")
+    private boolean active;
 
     @Column(name = "update_date")
     private Date updateDate;
@@ -35,7 +35,7 @@ public class Cart {
     @JoinColumn(name = "acc_id")
     private Account account;
 
-    @OneToMany(mappedBy = "cart", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cart", fetch = FetchType.EAGER)
     private Set<CartItem> cartItems;
 
     public Cart() {
@@ -61,20 +61,6 @@ public class Cart {
      */
     public void setId(int id) {
         this.id = id;
-    }
-
-    /**
-     * @return the status
-     */
-    public String getStatus() {
-        return status;
-    }
-
-    /**
-     * @param status the status to set
-     */
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     /**
@@ -133,5 +119,18 @@ public class Cart {
         this.cartItems = cartItems;
     }
 
+    /**
+     * @return the active
+     */
+    public boolean isActive() {
+        return active;
+    }
+
+    /**
+     * @param active the active to set
+     */
+    public void setActive(boolean active) {
+        this.active = active;
+    }
     
 }

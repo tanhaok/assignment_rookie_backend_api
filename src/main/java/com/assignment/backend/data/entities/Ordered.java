@@ -11,6 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 @Entity
 @Table(name = "Ordered")
 public class Ordered {
@@ -24,10 +27,12 @@ public class Ordered {
     @Column(name = "status")
     private String status;
 
-    @Column(name = "create_date")
+    @Column(name = "create_date", updatable = false)
+    @CreationTimestamp
     private Date createDate;
 
     @Column(name = "update_date")
+    @UpdateTimestamp
     private Date updateDate;
 
     @ManyToOne
