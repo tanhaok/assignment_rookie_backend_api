@@ -7,7 +7,6 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.assignment.backend.data.entities.Product;
@@ -15,9 +14,8 @@ import com.assignment.backend.data.entities.ProductRate;
 import com.assignment.backend.data.repositories.ProductRateRepository;
 import com.assignment.backend.data.repositories.ProductRepository;
 import com.assignment.backend.dto.request.ProductRateCreateDto;
-import com.assignment.backend.dto.response.Error;
+import com.assignment.backend.dto.response.MessageResponse;
 import com.assignment.backend.dto.response.ProductRateResponseDto;
-import com.assignment.backend.dto.response.SuccessResponse;
 import com.assignment.backend.exceptions.ResourceNotFoundException;
 import com.assignment.backend.services.ProductRateService;
 import com.assignment.backend.utils.Utils;
@@ -35,7 +33,7 @@ public class ProductRateServiceImpl implements ProductRateService {
     private ModelMapper modelMapper;
 
     @Override
-    public ResponseEntity<?> createNewRate(ProductRateCreateDto dto) {
+    public MessageResponse createNewRate(ProductRateCreateDto dto) {
 
         // TODO change this
         // check account nay da review product nay chua
@@ -45,12 +43,12 @@ public class ProductRateServiceImpl implements ProductRateService {
             // throw new ()
         }
         this.productRateRepository.save(modelMapper.map(dto, ProductRate.class));
-        return ResponseEntity.ok(new SuccessResponse(HttpStatus.CREATED, "Create successfully"));
+        return new MessageResponse(HttpStatus.CREATED, "Create successfully");
     }
 
     @Override
     public List<ProductRateResponseDto> getRatesByProductId(int proId, boolean status) {
-        List<ProductRate> lProductRates = new ArrayList<>();
+        List<ProductRate> lProductRates;
         if (status) {
             lProductRates = this.productRateRepository.findByStatus(true);
         } else {
@@ -69,7 +67,7 @@ public class ProductRateServiceImpl implements ProductRateService {
     }
 
     @Override
-    public ResponseEntity<?> changeStatus(int rateId) {
+    public MessageResponse changeStatus(int rateId) {
         ProductRate productRateOptional = this.productRateRepository.findById(rateId)
                 .orElseThrow(() -> new ResourceNotFoundException(Utils.PRODUCT_NOT_FOUND));
 
@@ -77,9 +75,8 @@ public class ProductRateServiceImpl implements ProductRateService {
         productRateOptional.setStatus(!oldStatus);
         this.productRateRepository.save(productRateOptional);
 
-        return ResponseEntity.ok(
-                new SuccessResponse(HttpStatus.OK,
-                        "Change status have Id: " + rateId + " to " + !oldStatus + " successfully"));
+        return new MessageResponse(HttpStatus.OK,
+                "Change status have Id: " + rateId + " to " + !oldStatus + " successfully");
     }
 
 }

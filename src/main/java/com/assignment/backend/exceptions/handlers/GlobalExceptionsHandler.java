@@ -10,43 +10,38 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.client.HttpClientErrorException.Forbidden;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.assignment.backend.dto.response.Error;
-import com.assignment.backend.exceptions.Unauthorized;
+import com.assignment.backend.dto.response.MessageResponse;
 import com.assignment.backend.exceptions.ResourceAlreadyExistsException;
 import com.assignment.backend.exceptions.ResourceNotFoundException;
+import com.assignment.backend.exceptions.Unauthorized;
 
 @ControllerAdvice
 public class GlobalExceptionsHandler extends ResponseEntityExceptionHandler {
     
 
     @ExceptionHandler({ResourceNotFoundException.class})
-    protected ResponseEntity<Error> handleResourceNotFoundException(RuntimeException exception, WebRequest req){
-        Error error = new Error("404", exception.getMessage());
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    protected MessageResponse handleResourceNotFoundException(RuntimeException exception, WebRequest req) {
+        return new MessageResponse(HttpStatus.NOT_FOUND, exception.getMessage());
     }
 
     @ExceptionHandler({ ResourceAlreadyExistsException.class })
-    protected ResponseEntity<Error> handleResourceAlreadyExistsException(RuntimeException exception,
+    protected MessageResponse handleResourceAlreadyExistsException(RuntimeException exception,
             WebRequest request) {
-        Error error = new Error("400", exception.getMessage());
-        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        return new MessageResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
     }
 
     @ExceptionHandler({ Unauthorized.class })
-    protected ResponseEntity<Error> handleForbiddenException(RuntimeException exception,
+    protected MessageResponse handleForbiddenException(RuntimeException exception,
             WebRequest request) {
-        Error error = new Error("403", exception.getMessage());
-        return new ResponseEntity<>(error, HttpStatus.FORBIDDEN);
+        return new MessageResponse(HttpStatus.FORBIDDEN, exception.getMessage());
     }
 
     @ExceptionHandler({IllegalArgumentException.class})
-    protected ResponseEntity<Error> handleIllegalArgumentException(RuntimeException exception, WebRequest request){
-        Error error = new Error("400", exception.getMessage());
-        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    protected MessageResponse handleIllegalArgumentException(RuntimeException exception, WebRequest request) {
+        return new MessageResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
     }
 
     @Override
@@ -58,8 +53,8 @@ public class GlobalExceptionsHandler extends ResponseEntityExceptionHandler {
             errors.put(field, message);
         });
 
-        Error error = new Error("404", "Validation Error", errors);
-        return new ResponseEntity<Object>(error, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<Object>(new MessageResponse(HttpStatus.BAD_REQUEST, exception.getMessage()),
+                HttpStatus.BAD_REQUEST);
     }
 
 }

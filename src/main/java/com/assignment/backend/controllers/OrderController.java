@@ -5,20 +5,19 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.assignment.backend.dto.request.OrderCreateDto;
+import com.assignment.backend.dto.response.MessageResponse;
 import com.assignment.backend.dto.response.OrderResponseDto;
 import com.assignment.backend.services.OrderService;
-
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @CrossOrigin(value = "*", maxAge = 3600)
@@ -57,7 +56,7 @@ public class OrderController {
      * @return Success or Error
      */
     @PostMapping()
-    public ResponseEntity<?> createNewOrder(@Valid @RequestBody OrderCreateDto dto) {
+    public MessageResponse createNewOrder(@Valid @RequestBody OrderCreateDto dto) {
         return this.orderService.createNewOrder(dto);
     }
 
@@ -68,7 +67,7 @@ public class OrderController {
      * @return Success or Error
      */
     @PatchMapping("/{orderId}/{status}")
-    public ResponseEntity<?> updateStatusOrder(@PathVariable int orderId, @PathVariable String status) {
+    public MessageResponse updateStatusOrder(@PathVariable int orderId, @PathVariable String status) {
         return this.orderService.updateStatusOrder(orderId, status);
     }
 

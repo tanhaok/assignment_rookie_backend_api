@@ -5,7 +5,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.assignment.backend.dto.request.RegisterRequestDto;
 import com.assignment.backend.dto.response.AccountResponseDto;
+import com.assignment.backend.dto.response.MessageResponse;
 import com.assignment.backend.services.AccountService;
 
 @RestController
@@ -37,12 +37,12 @@ public class AccountController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateAccount(@PathVariable int id, @Valid @RequestBody RegisterRequestDto dto) {
+    public MessageResponse updateAccount(@PathVariable int id, @Valid @RequestBody RegisterRequestDto dto) {
         return this.accountService.updateAccount(id, dto);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<?> deleteAccount(@PathVariable int id) {
+    public MessageResponse deleteAccount(@PathVariable int id) {
         return this.accountService.deleteAccount(id);
     }
 }

@@ -5,7 +5,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.assignment.backend.dto.request.ProductRateCreateDto;
+import com.assignment.backend.dto.response.MessageResponse;
 import com.assignment.backend.dto.response.ProductRateResponseDto;
 import com.assignment.backend.services.ProductRateService;
 
@@ -28,7 +28,7 @@ public class ProductRateController {
     private ProductRateService productRateService;
 
     @PostMapping()
-    public ResponseEntity<?> createNewRate(@Valid @RequestBody ProductRateCreateDto dto) {
+    public MessageResponse createNewRate(@Valid @RequestBody ProductRateCreateDto dto) {
         return this.productRateService.createNewRate(dto);
     }
 
@@ -43,7 +43,7 @@ public class ProductRateController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<?> changeStatusProductRate(@PathVariable int id) {
+    public MessageResponse changeStatusProductRate(@PathVariable int id) {
         return this.productRateService.changeStatus(id);
     }
 }

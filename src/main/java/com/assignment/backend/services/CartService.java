@@ -1,11 +1,9 @@
 package com.assignment.backend.services;
 
 
-import org.springframework.http.ResponseEntity;
-
 import com.assignment.backend.dto.request.CartItemCreateDto;
 import com.assignment.backend.dto.response.CartResponseDto;
-import com.assignment.backend.dto.response.SuccessResponse;
+import com.assignment.backend.dto.response.MessageResponse;
 
 public interface CartService {
     /**
@@ -22,10 +20,10 @@ public interface CartService {
      * @param dto include 3 param proId and cartId and quantity
      * @return success or error
      */
-    public ResponseEntity<SuccessResponse> addProductToCart(CartItemCreateDto dto);
+    public MessageResponse addProductToCart(CartItemCreateDto dto);
 
-    public ResponseEntity<SuccessResponse> updateQuantityProduct(CartItemCreateDto dto);
+    public MessageResponse updateQuantityProduct(CartItemCreateDto dto);
 
-    public ResponseEntity<SuccessResponse> deleteProductOutOfCart(int proId, int cartId);
+    public MessageResponse deleteProductOutOfCart(int proId, int cartId);
 
 }

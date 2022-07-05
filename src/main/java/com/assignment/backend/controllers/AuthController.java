@@ -1,9 +1,6 @@
 package com.assignment.backend.controllers;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,12 +19,9 @@ import com.assignment.backend.services.AuthService;
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class AuthController {
 
+    @Autowired
     private AuthService authService;
 
-    @Autowired
-    public AuthController(AuthService authService) {
-        this.authService = authService;
-    }
     /**
      * Sign In function
      * 

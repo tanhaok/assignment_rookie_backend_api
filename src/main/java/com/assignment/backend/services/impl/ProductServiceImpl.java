@@ -1,6 +1,5 @@
 package com.assignment.backend.services.impl;
 
-import java.lang.StackWalker.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +17,6 @@ import com.assignment.backend.data.repositories.ProductRepository;
 import com.assignment.backend.dto.request.ProductCreateDto;
 import com.assignment.backend.dto.response.ProductResponseDto;
 import com.assignment.backend.exceptions.ResourceNotFoundException;
-import com.assignment.backend.services.CategoryService;
 import com.assignment.backend.services.ProductService;
 import com.assignment.backend.utils.Utils;
 

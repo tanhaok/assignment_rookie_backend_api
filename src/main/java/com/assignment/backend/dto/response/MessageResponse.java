@@ -2,14 +2,14 @@ package com.assignment.backend.dto.response;
 
 import org.springframework.http.HttpStatus;
 
-public class SuccessResponse {
+public class MessageResponse {
     HttpStatus status;
     String message;
 
-    public SuccessResponse() {
+    public MessageResponse() {
     }
 
-    public SuccessResponse(HttpStatus status, String message) {
+    public MessageResponse(HttpStatus status, String message) {
         this.message = message;
         this.status = status;
     }

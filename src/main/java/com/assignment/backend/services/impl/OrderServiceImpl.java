@@ -6,7 +6,6 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.assignment.backend.data.entities.Account;
@@ -16,11 +15,10 @@ import com.assignment.backend.data.entities.Ordered;
 import com.assignment.backend.data.repositories.AccountRepository;
 import com.assignment.backend.data.repositories.CartRepository;
 import com.assignment.backend.data.repositories.OrderRepository;
-import com.assignment.backend.data.repositories.ProductRepository;
 import com.assignment.backend.dto.request.OrderCreateDto;
-import com.assignment.backend.dto.response.OrderResponseDto;
 import com.assignment.backend.dto.response.CartItemResponseDto;
-import com.assignment.backend.dto.response.SuccessResponse;
+import com.assignment.backend.dto.response.MessageResponse;
+import com.assignment.backend.dto.response.OrderResponseDto;
 import com.assignment.backend.exceptions.ResourceNotFoundException;
 import com.assignment.backend.services.OrderService;
 import com.assignment.backend.utils.Utils;
@@ -28,24 +26,18 @@ import com.assignment.backend.utils.Utils;
 @Service
 public class OrderServiceImpl implements OrderService {
 
+    @Autowired
     private OrderRepository orderRepository;
-    private ProductRepository productRepository;
+    @Autowired
     private ModelMapper modelMapper;
+    @Autowired
     private AccountRepository accountRepository;
+    @Autowired
     private CartRepository cartRepository;
 
-    @Autowired
-    public OrderServiceImpl(OrderRepository orderRepository, ProductRepository productRepository, ModelMapper mapper,
-            AccountRepository accountRepository, CartRepository cartRepository) {
-        this.modelMapper = mapper;
-        this.orderRepository = orderRepository;
-        this.productRepository = productRepository;
-        this.accountRepository = accountRepository;
-        this.cartRepository = cartRepository;
-    }
 
     @Override
-    public ResponseEntity<?> createNewOrder(OrderCreateDto dto) {
+    public MessageResponse createNewOrder(OrderCreateDto dto) {
         // check valid account is exist?
         Account acc = this.accountRepository.findById(dto.getAccId())
                 .orElseThrow(() -> new ResourceNotFoundException(Utils.NO_ACCOUNT));
@@ -63,7 +55,7 @@ public class OrderServiceImpl implements OrderService {
         order.setStatus("Waiting For Confirm ");
 
         this.orderRepository.save(order);
-        return ResponseEntity.ok(new SuccessResponse(HttpStatus.CREATED, Utils.CREATE_ORDER));
+        return new MessageResponse(HttpStatus.CREATED, Utils.CREATE_ORDER);
     }
 
     private List<OrderResponseDto> getListOrder(List<Ordered> listOrder) {
@@ -111,15 +103,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public ResponseEntity<?> updateStatusOrder(int orderId, String status) {
+    public MessageResponse updateStatusOrder(int orderId, String status) {
         Ordered ordered = this.orderRepository.findById(orderId)
                 .orElseThrow(() -> new ResourceNotFoundException(Utils.NO_ORDER));
 
         ordered.setStatus(status);
         this.orderRepository.save(ordered);
 
-        return ResponseEntity
-                .ok(new SuccessResponse(HttpStatus.OK, "Update status of order have id: " + orderId + " successfully"));
+        return new MessageResponse(HttpStatus.OK, "Update status of order have id: " + orderId + " successfully");
     }
 
 }

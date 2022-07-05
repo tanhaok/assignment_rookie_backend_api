@@ -1,7 +1,6 @@
 package com.assignment.backend.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.assignment.backend.dto.request.CartItemCreateDto;
 import com.assignment.backend.dto.response.CartResponseDto;
-import com.assignment.backend.dto.response.SuccessResponse;
+import com.assignment.backend.dto.response.MessageResponse;
 import com.assignment.backend.services.CartService;
 
 @RestController
@@ -37,17 +36,17 @@ public class CartController {
     }
 
     @PostMapping()
-    public ResponseEntity<SuccessResponse> addProductIntoCart(@RequestBody CartItemCreateDto dto) {
+    public MessageResponse addProductIntoCart(@RequestBody CartItemCreateDto dto) {
         return this.cartService.addProductToCart(dto);
     }
 
     @PutMapping()
-    public ResponseEntity<SuccessResponse> updateQuantityProduct(@RequestBody CartItemCreateDto dto) {
+    public MessageResponse updateQuantityProduct(@RequestBody CartItemCreateDto dto) {
         return this.cartService.updateQuantityProduct(dto);
     }
 
     @DeleteMapping()
-    public ResponseEntity<SuccessResponse> deleteProductOutOfCart(int proId, int cartId) {
+    public MessageResponse deleteProductOutOfCart(int proId, int cartId) {
         return this.cartService.deleteProductOutOfCart(proId, cartId);
     }
 
