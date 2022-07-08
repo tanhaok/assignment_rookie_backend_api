@@ -13,6 +13,7 @@ import com.assignment.backend.data.entities.Category;
 import com.assignment.backend.data.repositories.CategoryRepository;
 import com.assignment.backend.dto.request.CategoryCreateDto;
 import com.assignment.backend.dto.response.CategoryResponseDto;
+import com.assignment.backend.exceptions.ResourceAlreadyExistsException;
 import com.assignment.backend.exceptions.ResourceNotFoundException;
 import com.assignment.backend.services.CategoryService;
 import com.assignment.backend.utils.Utils;
@@ -20,17 +21,30 @@ import com.assignment.backend.utils.Utils;
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
+    @Autowired
     CategoryRepository categoryRepository;
+    @Autowired
     ModelMapper modelMapper;
 
-    @Autowired
-    public CategoryServiceImpl(CategoryRepository cRepository, ModelMapper mapper) {
-        this.categoryRepository = cRepository;
-        this.modelMapper = mapper;
+    public CategoryServiceImpl() {
+    }
+
+    /**
+     * @param categoryRepository
+     * @param modelMapper
+     */
+    public CategoryServiceImpl(CategoryRepository categoryRepository, ModelMapper modelMapper) {
+        this.categoryRepository = categoryRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
     public CategoryResponseDto createNewCategory(CategoryCreateDto dto) {
+        Optional<Category> categoryOptional = this.categoryRepository.findByName(dto.getCateName());
+        if (categoryOptional.isPresent()) {
+            throw new ResourceAlreadyExistsException();
+        }
+
         Category category = modelMapper.map(dto, Category.class);
         category.setStatus(Utils.CATEGORY_ACTIVE);
         Category saveCategory = this.categoryRepository.save(category);
@@ -81,7 +95,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category getCategoryById(int id) {
-        return this.categoryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException());
+    public CategoryResponseDto getCategoryById(int id) {
+        Category category = this.categoryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException());
+        return modelMapper.map(category, CategoryResponseDto.class);
     }
 }

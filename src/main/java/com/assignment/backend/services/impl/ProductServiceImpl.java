@@ -16,6 +16,7 @@ import com.assignment.backend.data.repositories.ProductImageRepository;
 import com.assignment.backend.data.repositories.ProductRepository;
 import com.assignment.backend.dto.request.ProductCreateDto;
 import com.assignment.backend.dto.response.ProductResponseDto;
+import com.assignment.backend.dto.response.ProductSimpleResponseDto;
 import com.assignment.backend.exceptions.ResourceNotFoundException;
 import com.assignment.backend.services.ProductService;
 import com.assignment.backend.utils.Utils;
@@ -65,22 +66,29 @@ public class ProductServiceImpl implements ProductService {
         return null;
     }
     @Override
-    public List<Product> getProductByCategory(int cateId) {
-        return null;
+    public List<ProductSimpleResponseDto> getProductByCategory(int cateId) {
+        Category category = this.categoryRepository.findById(cateId).orElseThrow(() -> new ResourceNotFoundException());
+
+        List<ProductSimpleResponseDto> result = new ArrayList<>();
+        List<Product> listProduct = this.productRepository.findByCategoryAndStatus(category, true);
+        for (Product product : listProduct) {
+            ProductSimpleResponseDto res = new ProductSimpleResponseDto();
+            result.add(res.build(product));
+        }
+        return result;
     }
     
 	@Override
-    public List<ProductResponseDto> getProductOnTrading() {
+    public List<ProductSimpleResponseDto> getProductOnTrading() {
         List<Product> lProducts = this.productRepository.findByStatus(Utils.PRODUCT_TRADING);
         if (lProducts.isEmpty()) {
             throw new ResourceNotFoundException(Utils.NO_PRODUCT);
         }
 
-        List<ProductResponseDto> result = new ArrayList<>();
+        List<ProductSimpleResponseDto> result = new ArrayList<>();
         for (Product product : lProducts) {
-            ProductResponseDto productDto = modelMapper.map(product, ProductResponseDto.class);
-            productDto.setRate(Utils.rate(product.getProductRates()));
-            result.add(productDto);
+            ProductSimpleResponseDto res = new ProductSimpleResponseDto();
+            result.add(res.build(product));
         }
         return result;
     }

@@ -5,6 +5,7 @@ import java.util.List;
 import com.assignment.backend.data.entities.Product;
 import com.assignment.backend.dto.request.ProductCreateDto;
 import com.assignment.backend.dto.response.ProductResponseDto;
+import com.assignment.backend.dto.response.ProductSimpleResponseDto;
 
 public interface ProductService {
 
@@ -12,7 +13,7 @@ public interface ProductService {
      * get all product when status = true
      * @return list of product
      */
-    public List<ProductResponseDto> getProductOnTrading();
+    public List<ProductSimpleResponseDto> getProductOnTrading();
 
     /**
      * get all product do not consider any conditions
@@ -31,7 +32,7 @@ public interface ProductService {
      * @param cateId: what client want to get
      * @return list of product have same cateId
      */
-    public List<Product> getProductByCategory(int cateId);
+    public List<ProductSimpleResponseDto> getProductByCategory(int cateId);
 
     /**
      * Create new product

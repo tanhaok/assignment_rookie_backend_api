@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.assignment.backend.data.entities.Product;
 import com.assignment.backend.dto.request.ProductCreateDto;
 import com.assignment.backend.dto.response.ProductResponseDto;
+import com.assignment.backend.dto.response.ProductSimpleResponseDto;
 import com.assignment.backend.services.ProductService;
 
 @RestController
@@ -33,8 +34,8 @@ public class ProductController {
      * 
      * @return
      */
-    @GetMapping()
-    public List<ProductResponseDto> getProductOnTrading() {
+    @GetMapping("/category/all")
+    public List<ProductSimpleResponseDto> getProductOnTrading() {
         return this.productService.getProductOnTrading();
     } 
 
@@ -54,7 +55,7 @@ public class ProductController {
     }
 
     @GetMapping("/category/{cateId}")
-    public List<Product> getProductByCategory(@PathVariable("cateId") int cate) {
+    public List<ProductSimpleResponseDto> getProductByCategory(@PathVariable("cateId") int cate) {
         return this.productService.getProductByCategory(cate);
     }
 

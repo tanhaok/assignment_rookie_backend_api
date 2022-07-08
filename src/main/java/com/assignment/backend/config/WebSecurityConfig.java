@@ -60,9 +60,9 @@ public class WebSecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/v1/auth/**").permitAll()
-                .antMatchers("/product/all").hasAnyAuthority("ADMIN")
-                .antMatchers("/category", "/category/**").hasAnyAuthority("USER")
+                // .antMatchers("/api/v1/auth/**").permitAll()
+                // .antMatchers("/product/all").hasAnyAuthority("ADMIN")
+                // .antMatchers("/category", "/category/**").hasAnyAuthority("USER")
                 .anyRequest().permitAll();
 
         return httpSecurity.build();

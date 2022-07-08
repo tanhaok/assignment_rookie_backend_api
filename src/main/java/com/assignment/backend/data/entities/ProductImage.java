@@ -17,12 +17,26 @@ public class ProductImage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "img_url")
+    @Column(name = "img_url", columnDefinition = "TEXT")
     private String imgUrl;
 
     @ManyToOne
     @JoinColumn(name = "pro_id")
     private Product product;
+
+    /**
+     * @return the imgUrl
+     */
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    /**
+     * @param imgUrl the imgUrl to set
+     */
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
 
     public ProductImage() {
         //default con
@@ -47,20 +61,6 @@ public class ProductImage {
      */
     public void setId(int id) {
         this.id = id;
-    }
-
-    /**
-     * @return the imgUrl
-     */
-    public String getImgUrl() {
-        return imgUrl;
-    }
-
-    /**
-     * @param imgUrl the imgUrl to set
-     */
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
     }
 
     /**
