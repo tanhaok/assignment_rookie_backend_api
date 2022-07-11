@@ -11,7 +11,7 @@ import com.assignment.backend.dto.response.MessageResponse;
 import com.assignment.backend.services.ProductImageService;
 
 @RestController
-@RequestMapping("/image")
+@RequestMapping("/api/v1/image")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class ProductImageController {
     

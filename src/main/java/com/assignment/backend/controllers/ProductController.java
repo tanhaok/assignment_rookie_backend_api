@@ -22,7 +22,7 @@ import com.assignment.backend.dto.response.ProductSimpleResponseDto;
 import com.assignment.backend.services.ProductService;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/api/v1/product")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class ProductController {
 
