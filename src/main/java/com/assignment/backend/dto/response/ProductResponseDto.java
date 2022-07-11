@@ -13,8 +13,10 @@ public class ProductResponseDto {
     private double rate;
     private Set<ImageResponseIdAndUrlDto> productImages;
     private CategoryResponseIdAndNameDto category;
+    private Set<ProductRateResponseDto> productRates;
     private Date updateDate;
     private Date createDate;
+
 
     /**
      * 
@@ -176,4 +178,19 @@ public class ProductResponseDto {
         this.createDate = createDate;
     }
 
+    /**
+     * @return the productRates
+     */
+    public Set<ProductRateResponseDto> getProductRates() {
+        return productRates;
+    }
+
+    /**
+     * @param productRates the productRates to set
+     */
+    public void setProductRates(Set<ProductRateResponseDto> productRates) {
+        this.productRates = productRates;
+    }
+
+    
 }

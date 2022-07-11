@@ -16,6 +16,7 @@ import com.assignment.backend.data.repositories.ProductRepository;
 import com.assignment.backend.dto.request.ProductRateCreateDto;
 import com.assignment.backend.dto.response.MessageResponse;
 import com.assignment.backend.dto.response.ProductRateResponseDto;
+import com.assignment.backend.exceptions.ResourceAlreadyExistsException;
 import com.assignment.backend.exceptions.ResourceNotFoundException;
 import com.assignment.backend.services.ProductRateService;
 import com.assignment.backend.utils.Utils;
@@ -34,15 +35,17 @@ public class ProductRateServiceImpl implements ProductRateService {
 
     @Override
     public MessageResponse createNewRate(ProductRateCreateDto dto) {
-
-        // TODO change this
-        // check account nay da review product nay chua
         Product pro = productRepository.findById(dto.getProId()).orElseThrow(() -> new ResourceNotFoundException());
         Optional<ProductRate> pRate = productRateRepository.findByAccIdAndProduct(dto.getAccId(), pro);
         if (pRate.isPresent()) {
-            // throw new ()
+            throw new ResourceAlreadyExistsException("You have commented on this product before.");
         }
-        this.productRateRepository.save(modelMapper.map(dto, ProductRate.class));
+        ProductRate newRate = new ProductRate();
+        newRate.setAccId(dto.getAccId());
+        newRate.setComment(dto.getComment());
+        newRate.setProduct(pro);
+        newRate.setRate(dto.getRate());
+        this.productRateRepository.save(newRate);
         return new MessageResponse(HttpStatus.CREATED, "Create successfully");
     }
 

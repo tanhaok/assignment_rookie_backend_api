@@ -56,7 +56,10 @@ public class ProductServiceImpl implements ProductService {
         Optional<Product> productOptional =  this.productRepository.findById(id);
         if(productOptional.isPresent()){
             Product product  = productOptional.get();
-            return modelMapper.map(product, ProductResponseDto.class);
+            ProductResponseDto res = new ProductResponseDto();
+            modelMapper.map(product, res);
+            res.setRate(Utils.rate(product.getProductRates()));
+            return res;
         }
         throw new ResourceNotFoundException(Utils.PRODUCT_NOT_FOUND);
     }
