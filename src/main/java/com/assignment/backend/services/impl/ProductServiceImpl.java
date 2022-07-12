@@ -114,8 +114,6 @@ public class ProductServiceImpl implements ProductService {
 
         Product newProduct = new Product();
         newProduct.setCategory(category);
-        newProduct.setCreateDate();
-        newProduct.setUpdateDate();
         newProduct.setName(productCreateDto.getName());
         newProduct.setDescription(productCreateDto.getDescription());
         newProduct.setAmount(productCreateDto.getAmount());
@@ -137,7 +135,6 @@ public class ProductServiceImpl implements ProductService {
             Product product = productOptional.get();
             Boolean tempStatus = product.getStatus();
             product.setStatus(!tempStatus);
-            product.setUpdateDate();
 
             product = this.productRepository.save(product);
             return modelMapper.map(product, ProductResponseDto.class);
@@ -155,7 +152,6 @@ public class ProductServiceImpl implements ProductService {
                 
         if (productOptional.isPresent()) {
             Product pro = productOptional.get();
-            pro.setUpdateDate();
             pro.setCategory(category);
             pro.setName(productCreateDto.getName());
             pro.setDescription(productCreateDto.getDescription());

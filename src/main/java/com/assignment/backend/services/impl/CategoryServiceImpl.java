@@ -70,7 +70,6 @@ public class CategoryServiceImpl implements CategoryService {
 
         Category category = categoRyOptional.get();
         modelMapper.map(dto, category);
-        category.setUpdateDate();
         category = this.categoryRepository.save(category);
         return modelMapper.map(category, CategoryResponseDto.class);
     }
@@ -88,8 +87,6 @@ public class CategoryServiceImpl implements CategoryService {
         } else {
             category.setStatus(Utils.CATEGORY_ACTIVE);
         }
-
-        category.setUpdateDate();
         category = this.categoryRepository.save(category);
         return modelMapper.map(category, CategoryResponseDto.class);
     }

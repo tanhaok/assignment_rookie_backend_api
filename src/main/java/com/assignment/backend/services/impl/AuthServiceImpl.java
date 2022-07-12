@@ -56,8 +56,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public AuthResponseDto registerUser(RegisterRequestDto dto) {
 
-        // check user exists
-        if (accountRepository.existsByUsername(dto.getUsername())) {
+        if (Boolean.TRUE.equals(accountRepository.existsByUsername(dto.getUsername()))) {
             throw new ResourceAlreadyExistsException(Utils.USERNAME_EXITS);
         }
 
@@ -66,12 +65,11 @@ public class AuthServiceImpl implements AuthService {
         Account account = modelMapper.map(dto, Account.class);
         account.setRole("USER");
         account.setStatus(true);
-        account.setCreateDate(new Date());
-        account.setUpdateDate(new Date());
         this.accountRepository.save(account);
         AuthResponseDto res = modelMapper.map(account, AuthResponseDto.class);
         String access = jwtUtils.generateJwtToken(account);
         res.setAccessToken(access);
+
         return res;
     }
 

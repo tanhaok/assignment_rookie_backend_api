@@ -1,10 +1,10 @@
 package com.assignment.backend.dto.response;
 
-import java.util.List;
+import java.util.Set;
 
 public class CartResponseDto {
     private int id;
-    List<CartItemResponseDto> items;
+    Set<CartItemResponseDto> cartItems;
 
     /**
      * @return the id
@@ -21,17 +21,20 @@ public class CartResponseDto {
     }
 
     /**
-     * @return the items
+     * @return the cartItems
      */
-    public List<CartItemResponseDto> getItems() {
-        return items;
+    public Set<CartItemResponseDto> getCartItems() {
+        return cartItems;
     }
 
     /**
-     * @param items the items to set
+     * @param cartItems the cartItems to set
      */
-    public void setItems(List<CartItemResponseDto> items) {
-        this.items = items;
+    public void setCartItems(Set<CartItemResponseDto> cartItems) {
+        this.cartItems = cartItems;
     }
+
+    
+
 
 }
