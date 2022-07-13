@@ -70,7 +70,7 @@ public class ProductServiceImpl implements ProductService {
     }
     @Override
     public List<ProductSimpleResponseDto> getProductByCategory(int cateId) {
-        Category category = this.categoryRepository.findById(cateId).orElseThrow(() -> new ResourceNotFoundException());
+        Category category = this.categoryRepository.findById(cateId).orElseThrow(ResourceNotFoundException::new);
 
         List<ProductSimpleResponseDto> result = new ArrayList<>();
         List<Product> listProduct = this.productRepository.findByCategoryAndStatus(category, true);
@@ -110,7 +110,7 @@ public class ProductServiceImpl implements ProductService {
 
         // get category
         Category category = this.categoryRepository.findById(productCreateDto.getCategoryId())
-                .orElseThrow(() -> new ResourceNotFoundException());
+                .orElseThrow(ResourceNotFoundException::new);
 
         Product newProduct = new Product();
         newProduct.setCategory(category);
@@ -148,7 +148,7 @@ public class ProductServiceImpl implements ProductService {
     public ProductResponseDto updateProduct(int id, ProductCreateDto productCreateDto) {
         Optional<Product> productOptional = this.productRepository.findById(id);
         Category category = this.categoryRepository.findById(productCreateDto.getCategoryId())
-                .orElseThrow(() -> new ResourceNotFoundException());
+                .orElseThrow(ResourceNotFoundException::new);
                 
         if (productOptional.isPresent()) {
             Product pro = productOptional.get();
